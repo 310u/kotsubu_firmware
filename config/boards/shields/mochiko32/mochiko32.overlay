@@ -7,8 +7,16 @@
     status = "okay";
 
     // CSピンの設定を複数指定
-    cs-gpios = <&xiao_d 11 GPIO_ACTIVE_LOW>;
-
+    cs-gpios =<&xiao_d 7 GPIO_ACTIVE_LOW>, <&xiao_d 11 GPIO_ACTIVE_LOW>;
+    shift_reg: 595@0 {
+        compatible = "zmk,gpio-595";
+        status = "okay";
+        gpio-controller;
+        spi-max-frequency = <200000>;
+        reg = <0>;
+        #gpio-cells = <2>;
+        ngpios = <8>;
+    };
 
 
     // PMW3610 トラックボールの設定
