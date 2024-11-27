@@ -6,38 +6,19 @@
 &xiao_spi {
     status = "okay";
 
-    // CSピンの設定を複数指定
-    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>, <&xiao_d 6 GPIO_ACTIVE_LOW>;
-    shift_reg: 595@0 {
-        compatible = "zmk,gpio-595";
-        status = "okay";
-        gpio-controller;
-        spi-max-frequency = <200000>;
-        reg = <0>;
-        #gpio-cells = <2>;
-        ngpios = <16>;
-    };
 
-
-    // PMW3610 トラックボールの設定
-    trackball: trackball@1 {
-        compatible = "pixart,pmw3610";
-        status = "okay";
-        spi-max-frequency = <20000000>; // 通信速度: 20MHz
-        reg = <1>;                      // SPIデバイスアドレス
-        irq-gpios = <&shift_reg 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    };
+    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
+        shift_reg: 595@0 {
+               compatible = "zmk,gpio-595";
+               status = "okay";
+               gpio-controller;
+               spi-max-frequency = <200000>;
+               reg = <0>;
+               #gpio-cells = <2>;
+               ngpios = <8>;
+       };
 };
-
-/ {
-    // トラックボールのイベントリスナー設定
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-    };
-};
-
-/ {
+/{
     model = "mochiko32";
     compatible = "mochiko32";
 
