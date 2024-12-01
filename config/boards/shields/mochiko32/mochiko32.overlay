@@ -15,7 +15,7 @@
                spi-max-frequency = <200000>;
                reg = <0>;
                #gpio-cells = <2>;
-               ngpios = <8>;
+               ngpios = <16>;
        };
 };
 /{
