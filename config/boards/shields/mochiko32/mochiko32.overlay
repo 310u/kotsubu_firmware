@@ -13,6 +13,7 @@
                compatible = "zmk,gpio-595";
                status = "okay";
                gpio-controller;
+               wakeup-source;
                spi-max-frequency = <200000>;
                reg = <0>;
                #gpio-cells = <2>;
