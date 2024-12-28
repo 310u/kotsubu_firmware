@@ -2,9 +2,9 @@
 #include <physical_layouts.dtsi>
 
 / {
-    mochiko32_physical_layout: mochiko32_physical_layout {
+    hoshimi_hakka-kotsubu_physical_layout: hoshimi_hakka-kotsubu_physical_layout {
         compatible = "zmk,physical-layout";
-        display-name = "Mochiko32";
+        display-name = "Hoshimi_hakka-kotsubu";
         transform = <&default_transform>;
         kscan = <&kscan0>;
         keys  //                     w   h    x    y     rot    rx    ry
@@ -44,9 +44,9 @@
     };
 };
 
-&layouts_mochiko32_position_map {
-    layout_mochiko32_map: layout_mable {
-        physical-layout = <&mochiko32_physical_layout>;
+&layouts_hoshimi_hakka-kotsubu_position_map {
+    layout_hoshimi_hakka-kotsubu_map: layout_mable {
+        physical-layout = <&hoshimi_hakka-kotsubu_physical_layout>;
         positions
             = < 0  1  2  3  4     5  6  7  8  9>
             , <10 11 12 13 14    15 16 17 18 19>
