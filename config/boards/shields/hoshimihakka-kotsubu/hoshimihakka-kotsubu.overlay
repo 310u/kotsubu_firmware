@@ -1,5 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
-#include "./hoshimi_hakka-kotsubu-layouts.dtsi"
+#include "./hoshimihakka-kotsubu-layouts.dtsi"
 
 &xiao_serial { status = "disabled"; };
 
@@ -44,13 +44,13 @@
        };
 };
 /{
-    model = "mochiko32";
-    compatible = "mochiko32";
+    model = "hoshimihakka-kotsubu";
+    compatible = "hoshimihakka-kotsubu";
 
     chosen {
         zmk,kscan = &kscan0;
         zmk,soft-off-wakeup-sources = <&kscan0>;
-        zmk,physical-layout = &mochiko32_physical_layout;
+        zmk,physical-layout = &hoshimihakka-kotsubu_physical_layout;
         transform = <&default_transform>;
    //     zmk,matrix_transform = &default_transform;
     };

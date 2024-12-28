@@ -1,5 +1,5 @@
 ---
 include:
   - board: seeeduino_xiao_ble
-    shield: hoshimi_hakka-kotsubu rgbled_adapter
+    shield: hoshimihakka-kotsubu rgbled_adapter
     snippet: studio-rpc-usb-uart

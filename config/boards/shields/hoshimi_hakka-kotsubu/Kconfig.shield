@@ -1,2 +1,0 @@
-config HOSHIMI_HAKKA-KOTSUBU
-    def_bool $(shields_list_contains,hoshimi_hakka-kotsubu)
