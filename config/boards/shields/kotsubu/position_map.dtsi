@@ -1,0 +1,6 @@
+/ {
+    layouts_kotsubu_position_map: layouts_kotsubu_position_map {
+        compatible = "zmk,physical-layout-position-map";
+        complete;
+    };
+};

@@ -1,7 +1,7 @@
-if HOSHIMIHAKKA-KOTSUBU
+if KOTSUBU
 
 config ZMK_KEYBOARD_NAME
-    default "hoshimihakka-kotsubu"
+    default "kotsubu"
 
 config SPI
     default y
