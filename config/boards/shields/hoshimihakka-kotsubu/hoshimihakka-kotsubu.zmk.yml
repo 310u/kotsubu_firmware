@@ -2,7 +2,7 @@ file_format: "1"
 id: hoshimihakka-kotsubu
 name: HOSHIMIHAKKA-kotsubu
 type: shield
-url: https://github.com/310u/hoshimihakka-kotsubu
+url: https://github.com/310u/hoshimi_hakka-kotsubu
 requires: [seeeduino_xiao_ble]
 features:
   - keys
