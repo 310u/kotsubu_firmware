@@ -73,7 +73,7 @@
     //       label = "KSCAN";
            debounce-press-ms = <1>;
            debounce-release-ms = <5>;
-           wakeup-sources;
+           wakeup-source;
            diode-direction = "col2row";
           
            // 0 1 2 3 4 7 6 5
