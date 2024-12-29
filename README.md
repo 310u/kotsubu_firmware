@@ -9,7 +9,7 @@
 
 ## お買い求めできるところ
 
-[BOOTH](https://hrc.booth.pm/)にて組立てキットを頒布しています。
+[BOOTH](https://hrc.booth.pm/items/6435252)にて組立てキットを頒布しています。
 
 ## Build Guide
 
