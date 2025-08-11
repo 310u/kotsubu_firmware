@@ -1,25 +1,25 @@
-/* kotsubu.overlay — deep sleep 復帰対応・完全版
+/* kotsubu.overlay — Studio対応 & deep sleep復帰・完全版
  *
- * 方針：
+ * ねらい：
  *  - 行列は col2row（列=出力 / 行=入力+PULL_DOWN）
- *  - kscan 自体に wakeup-source を付与
+ *  - kscan に wakeup-source を付与
  *  - soft-off 中は「起床用の行」を監視しつつ、
  *    extra-gpios で “列=出力” をアクティブ保持して確実に起床
- *  - zmk,matrix_transform は chosen で正式に指定
+ *  - Studio要件：chosen には「zmk,physical-layout」と「zmk,kscan」だけ。
+ *                 transform/kscan の紐づけは物理レイアウトノード側で行う。
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "./kotsubu-layouts.dtsi"
 
-/* ---------- XIAO BLE の不要機能などを明示的に落とすならここで ----------
- * &xiao_serial { status = "disabled"; };
- */
+/* 不要なら有効化しないでOK（UART占有を避けたい時など） */
+&xiao_serial { status = "disabled"; };
 
 /* ---------- SPI ピン設定（74HC595 用） ---------- */
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
-            /* SCK = P1.13(D8相当), MOSI/MISO = P1.15(D9相当・共用) */
+            /* SCK=P1.13, MOSI/MISO=P1.15（XIAO BLEのD8/D9相当） */
             psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
                     <NRF_PSEL(SPIM_MOSI, 1, 15)>,
                     <NRF_PSEL(SPIM_MISO, 1, 15)>;
@@ -44,7 +44,7 @@
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
 
-    /* 595 の /CS 相当を D7 で駆動（アクティブ LOW） */
+    /* 595 の /CS を D7 で駆動（アクティブLOW） */
     cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
 
     shift_reg: 595@0 {
@@ -63,10 +63,9 @@
     model = "kotsubu";
     compatible = "kotsubu";
 
-    /* ZMK が参照する “正規” の chosen 指定 */
+    /* Studioのお作法：ここには physical-layout と kscan だけ。 */
     chosen {
         zmk,kscan = &kscan0;
-        zmk,matrix_transform = &default_transform;
         zmk,physical-layout = &kotsubu_physical_layout;
     };
 
@@ -88,15 +87,15 @@
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
-        /* 起床可能にする */
         wakeup-source;
 
-        /* 軽めのデバウンス（必要に応じて 2〜3ms に） */
+        /* 必要に応じて2〜3msに上げても安定度UP */
         debounce-press-ms = <1>;
         debounce-release-ms = <5>;
 
-        /* 列：0..7 は 74HC595、8..9 は MCU 直結（D0, D1） */
-        /* 595 の物理配線順に合わせて 0 1 2 3 4 7 6 5 の並びを維持 */
+        /* 列：0..7 は 74HC595、8..9 は MCU 直結（D0, D1）
+         * 595の物理配線順に合わせ 0 1 2 3 4 7 6 5 の並びを維持
+         */
         col-gpios =
             <&shift_reg 0 GPIO_ACTIVE_HIGH>,
             <&shift_reg 1 GPIO_ACTIVE_HIGH>,
@@ -109,7 +108,7 @@
             <&xiao_d 0 GPIO_ACTIVE_HIGH>,   /* COL8  MCU直結 */
             <&xiao_d 1 GPIO_ACTIVE_HIGH>;   /* COL9  MCU直結 */
 
-        /* 行：入力 + PULL_DOWN（col2row の定石） */
+        /* 行：入力 + PULL_DOWN（col2rowの定石） */
         row-gpios =
             <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* ROW0 */
             <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* ROW1 */
@@ -117,9 +116,9 @@
             <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  /* ROW3 */
     };
 
-    /* --- soft-off 用の起床トリガ構成 --- 
-     * 1) 「起床に使う行」を gpio-keys で定義（ここでは ROW0）
-     * 2) zmk,gpio-key-wakeup-trigger でその行を監視
+    /* --- soft-off 用の起床トリガ構成 ---
+     * 1) 起床に使う行を gpio-keys で定義（ここでは ROW0）
+     * 2) zmk,gpio-key-wakeup-trigger でその行を監視（wakeup-source）
      * 3) extra-gpios で “列=出力” を起床中 HIGH に保持
      */
     keys {
@@ -140,7 +139,7 @@
             <&xiao_d 0 GPIO_ACTIVE_HIGH>,   /* COL8: MCU直結 */
             <&xiao_d 1 GPIO_ACTIVE_HIGH>,   /* COL9: MCU直結 */
 
-            /* 必要に応じて 595 側も 1〜2 本だけ足す（起床安定度アップ） */
+            /* 必要に応じて 595 側も 1〜2 本だけ足す（安定度UP） */
             <&shift_reg 0 GPIO_ACTIVE_HIGH>, /* 例：COL0 */
             <&shift_reg 4 GPIO_ACTIVE_HIGH>; /* 例：COL4 */
     };
