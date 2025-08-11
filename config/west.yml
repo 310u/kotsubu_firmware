@@ -4,9 +4,7 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: caksoylar
       url-base: https://github.com/caksoylar
-    - name: joelspadin
-      url-base: https://github.com/joelspadin
-      
+
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -16,8 +14,6 @@ manifest:
       remote: caksoylar
       revision: main
     - name: zmk-locales
-      remote: joelspadin
-      revision: main
 
   self:
     path: config
