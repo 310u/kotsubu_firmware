@@ -68,7 +68,7 @@
         zmk,kscan = &kscan0;
         zmk,matrix_transform = &default_transform;
         zmk,physical-layout = &kotsubu_physical_layout;
-    }
+    };
 
     /* --- Matrix Transform（あなたの元マップを踏襲） --- */
     default_transform: keymap_transform_0 {
