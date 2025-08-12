@@ -1,14 +1,3 @@
-/* kotsubu.overlay — Studio対応 & deep sleep復帰・完全版
- *
- * ねらい：
- *  - 行列は col2row（列=出力 / 行=入力+PULL_DOWN）
- *  - kscan に wakeup-source を付与
- *  - soft-off 中は「起床用の行」を監視しつつ、
- *    extra-gpios で “列=出力” をアクティブ保持して確実に起床
- *  - Studio要件：chosen には「zmk,physical-layout」と「zmk,kscan」だけ。
- *                 transform/kscan の紐づけは物理レイアウトノード側で行う。
- */
-
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "./kotsubu-layouts.dtsi"
 
@@ -51,7 +40,7 @@
         compatible = "zmk,gpio-595";
         status = "okay";
         gpio-controller;
-        spi-max-frequency = <200000>;  /* 安定優先で低め */
+        spi-max-frequency = <4000000>;  /* 安定優先で低め */
         reg = <0>;
         #gpio-cells = <2>;
         ngpios = <8>;
