@@ -7,8 +7,6 @@
 
 /* ---------- 74HC595 (SIPO) をGPIOとして扱う ---------- */
 &xiao_spi {
-/* ---------- 74HC595 (SIPO) をGPIOとして扱う ---------- */
-&xiao_spi {
     status = "okay";
 
 
