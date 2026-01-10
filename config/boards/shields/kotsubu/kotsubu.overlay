@@ -1,7 +1,7 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "./kotsubu-layouts.dtsi"
 
-&xiao_serial { status = "disabled"; };
+&uart0 { status = "disabled"; };
 
 
     
