@@ -68,6 +68,18 @@
             key-positions = <25 31>;
             layers = <0>;
         };
+
+        Pipe {
+            bindings = <&kp PIPE>;
+            key-positions = <8 9>;
+            layers = <1>;
+        };
+
+        Tlide {
+            bindings = <&kp TILDE>;
+            key-positions = <7 8>;
+            layers = <1>;
+        };
     };
 
     keymap {
